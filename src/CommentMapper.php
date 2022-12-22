@@ -49,4 +49,15 @@ class CommentMapper
         return $result;
     }
 
+    /**
+     * @param string $id
+     * @return bool
+     */
+    public function apiDelete(string $id): bool
+    {
+        $statement = $this->connection->prepare('DELETE FROM comments WHERE id = :id');
+        $statement->bindParam(':id', $id);
+        $result = $statement->execute();
+        return $result;
+    }
 }
