@@ -3,7 +3,7 @@ const App = {
         return {
             apiUrlGet: "http://" + window.location.host + "/api/get",
             apiUrlPost: "http://" + window.location.host + "/api/post",
-            apiUrlDelete: "http://" + window.location.host + "api/delete/",
+            apiUrlDelete: "http://" + window.location.host + "/api/delete/",
             comments: [],
             errors: [],
             form: {
@@ -81,7 +81,7 @@ const App = {
                 this.captchaGenerateUrl()
             } else {
                 this.errorClasses='captcha-error'
-                setTimeout(this.hideErrorCaptcha, 20000)
+                setTimeout(this.hideErrorCaptcha, 2000)
                 // Update captcha
                 this.captcha = ''
                 this.captchaGenerate()
