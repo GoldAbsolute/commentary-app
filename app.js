@@ -23,6 +23,8 @@ const App = {
         console.log(this.apiUrlDelete)
         //
         this.getComments()
+        this.captchaGenerate()
+        this.captchaGenerateUrl()
         //
     },
     methods: {
