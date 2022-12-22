@@ -1,0 +1,24 @@
+{
+    "name": "admin/commentary-app",
+    "description": "commentary app for test task",
+    "type": "project",
+    "authors": [
+        {
+            "name": "GoldAbsolute",
+            "email": "sokoldima1998@mail.ru"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "slim/slim": "4.*",
+        "slim/psr7": "^1.6",
+        "twig/twig": "^3.4",
+        "ext-pdo": "*",
+        "vlucas/phpdotenv": "^5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Comment\\": "src/"
+        }
+    }
+}
