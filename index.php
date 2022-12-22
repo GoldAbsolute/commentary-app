@@ -4,6 +4,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 use Twig\Environment;
 use Twig\Loader\FilesystemLoader;
+use Comment\CommentMapper;
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -28,6 +29,8 @@ try {
     die();
 }
 
+$commentMapper = new CommentMapper($connection);
+
 // Create app
 $app = AppFactory::create();
 $app->addBodyParsingMiddleware();
@@ -40,4 +43,23 @@ $app->get('/', function (Request $request, Response $response, $args) use ($view
     return $response;
 });
 
+$app->get('/api/get', function (Request $request, Response $response, $args) use ($commentMapper) {
+    try {
+        $comments = $commentMapper->apiGet();
+        $response->getBody()->write(json_encode($comments));
+        return $response
+            ->withHeader('content-type', 'application/json')
+            ->withStatus(200);
+    } catch (PDOException $e) {
+        $error = [
+            "message" =>$e->getMessage()
+        ];
+        $response->getBody()->write(json_encode($error));
+        return $response
+            ->withHeader('content-type', 'application/json')
+            ->withStatus(500);
+    }
+});
+
+// Run
 $app->run();
