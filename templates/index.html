@@ -91,12 +91,9 @@
             <span v-html="comments"></span>
             <div class="border comment" v-for="comment in comments" :key="comment.id">
                 <h4 v-html="comment.name"></h4>
-
                 <h6 v-html="comment.published_date"> </h6>
                 <h6 v-html="comment.published_time"> </h6>
-<!--                Text: <span v-html="comment.text"></span>-->
                 <h5 v-html="comment.text"></h5>
-                <br>
                 <span class="border btn btn-danger button-delete" v-on:click="deleteComment(comment)">Удалить комментарий</span>
             </div>
         </div>
