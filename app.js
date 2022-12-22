@@ -108,6 +108,21 @@ const App = {
             }
             await this.updateComments()
         },
+        captchaGenerate() {
+            let captcha = '';
+            i = 6;
+            while (captcha.length < i)
+                captcha += Math.random().toString(36).substring(2);
+            // string
+            secretCaptcha = captcha.substring(0, i);
+            this.secretCaptcha = secretCaptcha;
+        },
+        captchaGenerateUrl() {
+            this.secretCaptchaUrl = 'https://dummyimage.com/200x100/000/fff&text=' + this.secretCaptcha;
+        },
+        hideErrorCaptcha() {
+            this.errorClasses = 'display-none'
+        },
     }
 }
 
