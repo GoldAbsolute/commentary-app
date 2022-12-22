@@ -60,6 +60,26 @@ $app->get('/api/get', function (Request $request, Response $response, $args) use
             ->withStatus(500);
     }
 });
+$app->post('/api/post', function (Request $request, Response $response, $args) use ($commentMapper) {
+    $parsed_body = $request->getParsedBody();
+    $name = $parsed_body['name'];
+    $text = $parsed_body["text"];
+    try {
+        $result = $commentMapper->apiPost($name, $text);
+        $response->getBody()->write(json_encode($result));
+        return $response
+            ->withHeader('content-type', 'application/json')
+            ->withStatus(200);
+    } catch (PDOException $e) {
+        $error = [
+            "message" =>$e->getMessage()
+        ];
+        $response->getBody()->write(json_encode($error));
+        return $response
+            ->withHeader('content-type', 'application/json')
+            ->withStatus(500);
+    }
+});
 
 // Run
 $app->run();

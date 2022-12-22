@@ -30,4 +30,23 @@ class CommentMapper
         return $statement->fetchAll(PDO::FETCH_OBJ);
     }
 
+    /**
+     * @param string $name
+     * @param string $text
+     * @return bool
+     */
+    public function apiPost(string $name, string $text): bool
+    {
+        $published_date = date("Y-m-d", time());
+        $published_time = date("H:i:s", time());
+
+        $statement = $this->connection->prepare('INSERT INTO comments (name, text, published_time, published_date) VALUES (:name, :text, :published_time, :published_date)');
+        $statement->bindParam(':name', $name);
+        $statement->bindParam(':text', $text);
+        $statement->bindParam(':published_time', $published_time);
+        $statement->bindParam(':published_date', $published_date);
+        $result = $statement->execute();
+        return $result;
+    }
+
 }
